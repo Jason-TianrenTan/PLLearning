@@ -23,8 +23,8 @@ using namespace std;
 const int q = 7;//标签数目
 const int d = 9;//实例空间维度
 const int m = 214;//实例数目
-const int K = 14;//KNN
-const double Tou = 20;//?
+const int K = 5;//KNN
+const double Tou = 5;//?
 const int ROS = -1;
 const int SMOTE = 0;
 const int POS = 1;

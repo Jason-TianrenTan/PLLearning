@@ -111,7 +111,9 @@ void init()
 	for (int i = 0; i < m; i++)
 	{
 		int* Nx = getKNN(i);//KNN数组
-
+		double total = 0;
+		for (int p = 0; p < K; p++)
+			total += DistMatrix[i][Nx[p]];
 		for (int index = 1; index <= q; index++)
 		{
 			Gamma[i][index] = 0;
@@ -119,9 +121,7 @@ void init()
 			{
 				int j = Nx[knn_index];
 				double top = DistMatrix[i][j];
-				double total = 0;
-				for (int p = 0; p < K; p++)
-					total += DistMatrix[i][Nx[p]];
+				
 				Gamma[i][index] += (1 - top / total) * bSVec[j][index];
 			}
 		}
@@ -137,6 +137,7 @@ void init()
 				maxIndex = index;
 			}
 		}
+
 		GMatrix[maxIndex].insert(pair<int, int>(i, maxIndex));
 	}
 
@@ -159,20 +160,37 @@ bool gamma_compare(const GammaRow& row1, const GammaRow& row2)
 	return row1.gamma_value > row2.gamma_value;
 }
 
+void printGMatrices()
+{
+	for (int j = 1; j <= q; j++)
+	{
+		cout << "G[" << j << "]" << endl;
+		for (unordered_map<int, int>::iterator iter = GMatrix[j].begin(); iter != GMatrix[j].end(); iter++)
+			cout << "("<<iter->first << "," << iter->second << ") ";
+		cout << endl;
+	}
+}
 
 void adjustGMatrix()
-{
+{ 
+	cout << "Before: " << endl;
+	printGMatrices();
 	for (int j = 1; j <= q; j++)
 	{
 		vector<int> instances;
 		for (int i = 0; i < m; i++)
 		{
+			bool contains = false;
 			for (unordered_map<int, int>::iterator iter = GMatrix[j].begin(); iter != GMatrix[j].end(); iter++)
 			{
 				if (iter->first == i && iter->second == j)
-					continue;
-				instances.push_back(i);
+				{
+					contains = true;
+					break;
+				}
 			}
+			if (!contains)
+				instances.push_back(i);
 		}
 		//对Gamma矩阵第j列进行排序
 		vector<GammaRow> rows;
@@ -183,11 +201,8 @@ void adjustGMatrix()
 		int pointer = 0;
 		while (GMatrix[j].size() < Tou)
 		{
-			cout << "At G" << j << endl;
 			int index = rows[pointer].row_index;
 			int _j = GMatrix[j][index];
-			cout << endl;
-			cout << "i = " << index << ", j = " << _j << ", size = "<<GMatrix[_j].size()<<endl;
 			if (GMatrix[_j].size() - 1 > Tou)
 			{
 				for (unordered_map<int, int>::iterator iter = GMatrix[_j].begin(); iter != GMatrix[_j].end(); iter++)
@@ -207,6 +222,9 @@ void adjustGMatrix()
 		}
 
 	}
+
+	cout << "After:" << endl;
+	printGMatrices();
 }
 
 DataInstance GenerateByROS(int j)
@@ -286,6 +304,10 @@ void ReplenishTrainingSet(int algorithm)
 			count++;
 		}
 	}
+
+	cout << "Result:" << endl;
+	printGMatrices();
+
 }
 
 

@@ -4,6 +4,6 @@ c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(49): wa
 c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(63): warning C4018: '<': signed/unsigned mismatch
 c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(70): warning C4018: '<': signed/unsigned mismatch
 c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(75): warning C4018: '<': signed/unsigned mismatch
-c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(248): warning C4018: '>': signed/unsigned mismatch
-c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(259): warning C4018: '<': signed/unsigned mismatch
+c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(266): warning C4018: '>': signed/unsigned mismatch
+c:\users\administrator\source\repos\pllearning\pllearning\pllearning.cpp(277): warning C4018: '<': signed/unsigned mismatch
   PLLearning.vcxproj -> C:\Users\Administrator\source\repos\PLLearning\Debug\PLLearning.exe
